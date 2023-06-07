@@ -1,12 +1,14 @@
 export const GET_NEWS_FEED = "GET_NEWS_FEED";
 import { apiClient } from "../api";
+import { NewsCategory } from "../constants";
 
 export const getNewsFeed =
-  (setIsLoading: Function) => async (dispatch: Function) => {
+  (setIsLoading: Function, category: String = NewsCategory.business) =>
+  async (dispatch: Function) => {
     try {
       setIsLoading(true);
       const res = await apiClient.get(
-        "top-headlines?language=en&category=business"
+        `top-headlines?language=en&category=${category}`
       );
       setIsLoading(false);
       if (res.status === 200) {

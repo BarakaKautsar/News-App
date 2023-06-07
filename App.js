@@ -1,13 +1,19 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, ActivityIndicator } from "react-native";
 import { Provider } from "react-redux";
-import { store } from "./src/redux/store";
+import { PersistGate } from "redux-persist/integration/react";
+import { persistor, store } from "./src/redux/store";
 import { Feed } from "./screens/feed/feed.tsx";
 
 export default function App() {
   return (
     <Provider store={store}>
-      <Feed />
+      <PersistGate
+        loading={<ActivityIndicator size={"large"} color={"#000"} />}
+        persistor={persistor}
+      >
+        <Feed />
+      </PersistGate>
     </Provider>
   );
 }
