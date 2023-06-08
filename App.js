@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, ActivityIndicator } from "react-native";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistor, store } from "./src/redux/store";
-import { Feed } from "./screens/feed/feed.tsx";
+import { RootNavigation } from "./navigation";
 
 export default function App() {
   return (
@@ -12,7 +12,7 @@ export default function App() {
         loading={<ActivityIndicator size={"large"} color={"#000"} />}
         persistor={persistor}
       >
-        <Feed />
+        <RootNavigation />
       </PersistGate>
     </Provider>
   );

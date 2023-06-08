@@ -4,7 +4,7 @@ export default StyleSheet.create({
     maxHeight: 40,
   },
   contentContainer: {
-    paddingHorizontal: 24,
+    paddingHorizontal: 20,
     alignItems: "center",
     justifyContent: "center",
   },

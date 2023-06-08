@@ -10,18 +10,22 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { NewsArticle } from "../../components/NewsArticle";
 import { NewsTags } from "../../components/NewsTags";
+import { SearchInput } from "../../components/Search";
 import { getNewsFeed } from "../../src/redux/actions";
 import styles from "./styles";
 import uuid from "react-native-uuid";
 import { NewsCategory } from "../../src/constants";
 
 export const Feed: React.FC = () => {
-  const { newsFeed } = useSelector((state: any) => state.feedReducer);
+  const { newsFeed, searchResults } = useSelector(
+    (state: any) => state.feedReducer
+  );
   const dispatch: Function = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(
     NewsCategory.business
   );
+  const [searchText, setSearchText] = useState("");
 
   useEffect(() => {
     dispatch(getNewsFeed(setIsLoading, selectedCategory));
@@ -33,10 +37,17 @@ export const Feed: React.FC = () => {
   const backgroundColor = useColorScheme() === "dark" ? "#000" : "#fff";
   return (
     <SafeAreaView style={[styles.container, { backgroundColor }]}>
-      <NewsTags
-        selectedCategory={selectedCategory}
-        setSelectedCategory={setSelectedCategory}
+      <SearchInput
+        searchText={searchText}
+        setSearchText={setSearchText}
+        setIsLoading={setIsLoading}
       />
+      {!searchText?.trim() && (
+        <NewsTags
+          selectedCategory={selectedCategory}
+          setSelectedCategory={setSelectedCategory}
+        />
+      )}
       <FlatList
         keyExtractor={() => uuid.v4()?.toString()}
         showsVerticalScrollIndicator={false}
